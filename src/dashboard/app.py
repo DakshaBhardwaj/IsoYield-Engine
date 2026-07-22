@@ -221,7 +221,9 @@ st.sidebar.info("""
 The Pyomo LP model is held in memory as a global mutable state in the FastAPI backend.
 """)
 
-API_URL = "http://127.0.0.1:8000/optimize"
+import os
+
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/optimize")
 
 # ==========================================
 # 2. API CONNECTION & DATA FETCHING
