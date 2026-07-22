@@ -1,12 +1,34 @@
 # Python virtual environments
 my_venv2/
+venv/
+env/
+.venv/
 
 # Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
 
 # Ignore presentation and review documentation
 docs/panel_prep.md
 docs/architecture_diagrams.md
 docs/critical_review.md
 docs/math_and_usage.md
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Environment variables
+.env
+.env.local

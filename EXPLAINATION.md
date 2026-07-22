@@ -1,4 +1,4 @@
-# 📘 The Mathematics of Survival: Agri-Economics Optimizer
+# The Mathematics of Survival: IsoYield Engine
 
 This document provides a deep-dive explanation into the mathematical engines driving this project. It is structured to bridge the gap between abstract equations and real-world agricultural economics.
 
