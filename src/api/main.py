@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
@@ -14,6 +16,15 @@ class OptimizationPayload(BaseModel):
     risk_aversion: float
     water_cost: float
 
+@app.get("/")
+def health_check():
+    """
+    Root health-check endpoint. Render (and browsers hitting the bare
+    URL) will get a 200 here instead of a 404, and it's a quick way to
+    confirm the service is awake.
+    """
+    return {"status": "ok", "service": "UP Agri-Economics Optimization Engine API"}
+
 @app.post("/optimize")
 def optimize_portfolio(payload: OptimizationPayload):
     """
@@ -28,4 +39,16 @@ def optimize_portfolio(payload: OptimizationPayload):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("src.api.main:app", host="127.0.0.1", port=8000, reload=True)
+
+    # Render (and most cloud hosts) inject the port to bind to via the
+    # PORT env var, and require binding to 0.0.0.0 rather than
+    # 127.0.0.1/localhost so the service is reachable from outside the
+    # container. reload=True is dev-only; disable it for production.
+    port = int(os.environ.get("PORT", 8000))
+    is_local = os.environ.get("RENDER") is None
+    uvicorn.run(
+        "src.api.main:app",
+        host="127.0.0.1" if is_local else "0.0.0.0",
+        port=port,
+        reload=is_local,
+    )
